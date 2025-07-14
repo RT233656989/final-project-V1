@@ -1,5 +1,3 @@
-<!-- Page d'inscription -->
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -16,7 +14,7 @@
     <div class="container">
         <div class="d-flex justify-content-center">
             <div class="card mt-5 rounded-4 border-0 w-50">
-                <form class="card-body p-5" action="#" method="post">
+                <form class="card-body p-5" action="t_inscription.php" method="post">
                     <?php if (isset($_GET["error"])) { ?>
                         <div class="alert alert-danger text-center text-dark" role="alert">
                             Erreur de l'inscription
@@ -48,7 +46,7 @@
 
                     <div class="mb-3">
                         <label for="ville" class="form-label">Ville</label>
-                        <input type="text" id="ville" class="form-control bg-body-secondary bg-opacity-25" name="ville" pattern="^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$" required>
+                        <input type="text" id="ville" class="form-control bg-body-secondary bg-opacity-25" name="ville" pattern="^[A-Za-zÀ-ÖØ-öø-ÿ'’ -]{2,40}$" required>
                     </div>
 
                     <div class="mb-3">

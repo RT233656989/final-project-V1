@@ -4,7 +4,7 @@ function dbconnect()
     static $bdd = null;
 
     if ($bdd === null) {
-        $bdd = mysqli_connect('localhost', 'root', '', 'employees');
+        $bdd = mysqli_connect('localhost', 'root', '', 'final_project');
 
         if (!$bdd) {
             // Arrête le script et affiche une erreur si la connexion échoue
