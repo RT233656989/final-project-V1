@@ -1,6 +1,7 @@
 <?php
 require("../inc/connection.php");
 include("../inc/fonction.php");
+include("header/header.php");
 $liste_cat = get_cat();
 ?>
 

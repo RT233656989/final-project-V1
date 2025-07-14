@@ -2,81 +2,74 @@
 require('../inc/connection.php');
 include('../inc/fonction.php');
 session_start();
-var_dump($_POST);
 
-$uploadDir = '../assets/uploads/';
-$maxSize = 20 * 1024 * 1024; // 20 Mo (corrigé le calcul)
+$uploadDir = '../assets/Images/';
+$maxSize = 20 * 1024 * 1024; // 20 Mo
 $allowedMimeTypes = ['image/jpeg', 'image/png'];
 
-// Vérifie si des fichiers sont soumis
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['fichier']['name'][0])) {
-    $files = $_FILES['fichier'];
-    $uploadSuccess = true;
-    
-    // Parcourir tous les fichiers uploadés
-    foreach ($files['tmp_name'] as $key => $tmpName) {
-        $file = [
-            'name' => $files['name'][$key],
-            'type' => $files['type'][$key],
-            'tmp_name' => $tmpName,
-            'error' => $files['error'][$key],
-            'size' => $files['size'][$key]
-        ];
-        
-        // Vérifie les erreurs d'upload
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            echo 'Erreur lors de l\'upload de ' . $file['name'] . ' : ' . $file['error'] . '<br>';
-            $uploadSuccess = false;
-            continue;
-        }
-        
-        // Vérifie la taille
-        if ($file['size'] > $maxSize) {
-            echo 'Le fichier ' . $file['name'] . ' est trop volumineux.<br>';
-            $uploadSuccess = false;
-            continue;
-        }
-        
-        // Vérifie le type MIME avec finfo
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime = finfo_file($finfo, $file['tmp_name']);
-        finfo_close($finfo);
-        
-        if (!in_array($mime, $allowedMimeTypes)) {
-            echo 'Type de fichier non autorisé pour ' . $file['name'] . ' : ' . $mime . '<br>';
-            $uploadSuccess = false;
-            continue;
-        }
-        
-        // Renomme le fichier
-        $originalName = pathinfo($file['name'], PATHINFO_FILENAME);
-        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $newName = $originalName . '_' . uniqid() . '.' . $extension;
-        
-        // Déplace le fichier
-        if (move_uploaded_file($file['tmp_name'], $uploadDir . $newName)) {
-            echo "Succès pour " . $file['name'] . "</br>";
-            $lalana = $uploadDir . $newName;
-            echo "Nom du fichier: ".$newName." et extension: ".$extension;
-            echo "</br>";
-            echo "Lalana: ".$lalana;
-            echo "</br>";
-            
-            //add_image($_SESSION['current_id'], $lalana);
-            
-        } else {
-            echo "Échec du déplacement du fichier " . $file['name'] . ".<br>";
-            $uploadSuccess = false;
-        }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vérifier les champs POST requis
+    if (empty($_POST['nom']) || empty($_POST['cat'])) {
+        die('Tous les champs sont obligatoires.');
     }
+
+    // Vérifier si des fichiers ont été uploadés
+    if (empty($_FILES['images']['name'][0])) {
+        die('Au moins une image est requise.');
+    }
+
+    // Traitement de la première image (image principale)
+    $mainImagePath = null;
+    $firstImage = [
+        'name' => $_FILES['images']['name'][0],
+        'type' => $_FILES['images']['type'][0],
+        'tmp_name' => $_FILES['images']['tmp_name'][0],
+        'error' => $_FILES['images']['error'][0],
+        'size' => $_FILES['images']['size'][0]
+    ];
+
+    // Uploader l'image principale
+    $mainImagePath = upload_image($firstImage);
     
-    // Redirection seulement si tous les uploads ont réussi
-    if ($uploadSuccess) {
+    if (!$mainImagePath) {
+        die("Erreur lors de l'upload de l'image principale.");
+    }
+
+    // Ajouter l'objet avec l'image principale
+    $nom_objet = $_POST['nom'];
+    $id_categorie = $_POST['cat'];
+    $id_membre = $_SESSION['current_id'];
+    
+    $id_objet = add_objet($nom_objet, $id_categorie, $id_membre, $mainImagePath);
+
+    if ($id_objet) {
+        // Traitement des images supplémentaires (s'il y en a)
+        $totalFiles = count($_FILES['images']['name']);
+        for ($i = 1; $i < $totalFiles; $i++) {
+            $extraImage = [
+                'name' => $_FILES['images']['name'][$i],
+                'type' => $_FILES['images']['type'][$i],
+                'tmp_name' => $_FILES['images']['tmp_name'][$i],
+                'error' => $_FILES['images']['error'][$i],
+                'size' => $_FILES['images']['size'][$i]
+            ];
+            
+            $extraImagePath = upload_image($extraImage);
+            if ($extraImagePath) {
+                // Ajouter l'image supplémentaire
+                $sql = "INSERT INTO final_project_images_objet (id_objet, nom_image) 
+                        VALUES ('$id_objet', '$extraImagePath')";
+                mysqli_query(dbconnect(), $sql);
+            }
+        }
+        
+        // Redirection
         header('Location: liste.php');
         exit;
+    } else {
+        die("Erreur lors de l'ajout de l'objet.");
     }
-    
 } else {
-    echo "Aucun fichier reçu ou erreur dans le formulaire.";
+    die('Méthode non autorisée.');
 }
 ?>

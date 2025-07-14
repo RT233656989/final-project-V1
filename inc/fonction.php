@@ -104,3 +104,59 @@ function getPropObjet($id)
     }
     return $tab;
 }
+
+function add_objet($nom_objet, $id_categorie, $id_membre, $image_path)
+{
+    $conn = dbconnect();
+
+    // 1. Ajouter l'objet
+    $sql_objet = "INSERT INTO final_project_objet (nom_objet, id_categorie, id_membre) 
+                  VALUES ('$nom_objet', '$id_categorie', '$id_membre')";
+    mysqli_query($conn, $sql_objet);
+    $id_objet = mysqli_insert_id($conn);
+
+    // 2. Ajouter l'image principale
+    if ($image_path) {
+        $sql_image = "INSERT INTO final_project_images_objet (id_objet, nom_image) 
+                      VALUES ('$id_objet', '$image_path')";
+        mysqli_query($conn, $sql_image);
+    }
+
+    return $id_objet;
+}
+
+function upload_image($file) {
+    $uploadDir = '../assets/Images/';
+    $maxSize = 20 * 1024 * 1024; // 20 Mo
+    $allowedMimeTypes = ['image/jpeg', 'image/png'];
+    
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        return false;
+    }
+    
+    // Vérification de la taille
+    if ($file['size'] > $maxSize) {
+        return false;
+    }
+    
+    // Vérification du type MIME
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file($finfo, $file['tmp_name']);
+    finfo_close($finfo);
+    
+    if (!in_array($mime, $allowedMimeTypes)) {
+        return false;
+    }
+    
+    // Renommer et déplacer le fichier
+    $originalName = pathinfo($file['name'], PATHINFO_FILENAME);
+    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $newName = $originalName . '_' . uniqid() . '.' . $extension;
+    $targetPath = $uploadDir . $newName;
+    
+    if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+        return $targetPath;
+    }
+    
+    return false;
+}

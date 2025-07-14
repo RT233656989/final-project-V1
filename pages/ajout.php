@@ -1,74 +1,58 @@
 <?php
 require("../inc/connection.php");
 include("../inc/fonction.php");
+include("header/header.php");
 $liste_cat = get_cat();
-$liste_membre = get_all_member();
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TP</title>
+    <title>Ajout d'objet</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <body class="bg-light">
     <div class="container">
         <div class="d-flex justify-content-center">
             <div class="card mt-5 rounded-4 border-0 w-50">
-                <form class="card-body p-5" action="t_inscription.php" method="post">
-
+                <form class="card-body p-5" action="t_uploadobj.php" method="post" enctype="multipart/form-data">
                     <div class="alert alert-primary text-center text-dark" role="alert">
                         Ajouter un Objet dans la liste
                     </div>
 
-
                     <div class="mb-3 text-center text-secondary">
-                        <small>Veuillez saisir vos informations pour continuer</small>
+                        <small>Veuillez saisir les informations de l'objet</small>
                     </div>
 
-                    <label for="nom" class="form-label">Categorie</label>
-                    <select name="cat" class="form-select mt-3" aria-label="Default select example">
-                                <?php for ($i = 0; $i < count($liste_cat); $i++) { ?>
-                                    <option value="<?php echo $liste_cat[$i]['id_categorie'] ?>">
-                                        <?php echo $liste_cat[$i]['nom_categorie'] ?>
-                                    </option>
-                                <?php } ?>
-                        </select>
-
-                        <label for="nom" class="form-label">Membre</label>
-                    <select name="membre" class="form-select mt-3" aria-label="Default select example">
-                                <?php for ($i = 0; $i < count($liste_membre); $i++) { ?>
-                                    <option value="<?php echo $liste_membre[$i]['id_membre'] ?>">
-                                        <?php echo $liste_membre[$i]['nom'] ?>
-                                    </option>
-                                <?php } ?>
+                    <label for="cat" class="form-label">Catégorie</label>
+                    <select name="cat" id="cat" class="form-select mt-3" required>
+                        <?php foreach($liste_cat as $categorie): ?>
+                            <option value="<?= $categorie['id_categorie'] ?>">
+                                <?= $categorie['nom_categorie'] ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
 
-                    <div class="mb-3">
-                        <label for="nom" class="form-label">Nom objet</label>
-                        <input type="text" id="nom" class="form-control bg-body-secondary bg-opacity-25" name="nom"
-                            pattern="^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$" required>
+                    <div class="mb-3 mt-3">
+                        <label for="nom" class="form-label">Nom de l'objet</label>
+                        <input type="text" id="nom" class="form-control" name="nom" required>
                     </div>
-
-                    <label for="nom" class="form-label">image objet</label>
 
                     <div class="mb-4">
-                        <label for="images">Sélectionnez plusieurs images :</label>
-                        <input type="file"class="form-control form-control-lg"  name="images[]" id="images" multiple accept="image/*">
-                        <div class="form-text">Formats acceptés: jpg, png. Max 5MB.</div>
+                        <label for="images" class="form-label">Images de l'objet</label>
+                        <input type="file" class="form-control form-control" name="images[]" id="images" 
+                               multiple accept="image/jpeg, image/png" required>
+                        <div class="form-text mt-3">La première image sera utilisée comme image principale.</div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mt-4 p-2">Connexion</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-4 p-2">Ajouter l'objet</button>
                 </form>
             </div>
         </div>
     </div>
 </body>
-
 </html>

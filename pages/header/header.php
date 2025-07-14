@@ -10,6 +10,7 @@
                 <a class="nav-link" aria-current="page" href="liste.php">Home</a>
                 <a class="nav-link" aria-current="page" href="login.php">Se déconnecter</a>
                 <a class="nav-link" aria-current="page" href="recherche.php">Rechercher</a>
+                <a class="nav-link" aria-current="page" href="ajout.php">Ajout</a>
             </div>
         </div>
     </div>
