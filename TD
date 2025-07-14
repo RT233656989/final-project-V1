@@ -1,0 +1,21 @@
+V1:
+login:
+    Creer formulaire avec les input semantiques
+    Envoyer dans page de traitement
+t_login:
+    Creer fonction verify_log pour voir si l'utilisateur existe
+    Si existe -> liste.php
+    sinon retour et message d'erreur
+inscription:
+    Creer formulaire avec les input semantiques
+t_inscription:
+    Creer fonction add_user pour ajouter utilisateur
+    Mettre un upload pour pdp
+    creer fonction add_image pour update la table membre
+liste:
+    Creer vue pour tout regrouper (objet, emprunt, etc ... )
+    Creer fonction pour get la liste de tous les objets
+V2:
+    Ajouter header
+    Ajouter canva pour upload image et publier un objet
+    Mettre div style facebook pour montrer les objets

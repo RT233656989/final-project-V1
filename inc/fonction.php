@@ -32,6 +32,10 @@ function get_objets()
     $tab = [];
 
     while ($data = mysqli_fetch_assoc($result)) {
+        if($data['date_retour'] < date('%b %e %Y')){
+            $data['date_retour'] = "rendu";
+        }
+
         $tab[] = $data;
     }
     return $tab;
