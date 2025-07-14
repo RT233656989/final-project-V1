@@ -32,7 +32,7 @@ function get_objets()
     $tab = [];
 
     while ($data = mysqli_fetch_assoc($result)) {
-        if($data['date_retour'] < date('%b %e %Y')){
+        if ($data['date_retour'] < date('%b %e %Y')) {
             $data['date_retour'] = "rendu";
         }
 
@@ -47,8 +47,59 @@ function getObjCat($categorie)
     WHERE categorie_id='%s'";
     $sql = sprintf($prompt, $categorie);
     $result = mysqli_query(dbconnect(), $sql);
-    $tab = [];
+    $ta = [];
     while ($data = mysqli_fetch_assoc($result)) {
+        $tab[] = $data;
+    }
+    return $tab;
+}
+
+
+function get_cat()
+{
+    $prompt = "SELECT * FROM final_project_categorie_objet";
+    $result = mysqli_query(dbconnect(), $prompt);
+    $tab = [];
+
+    while ($data = mysqli_fetch_assoc($result)) {
+
+        $tab[] = $data;
+    }
+    return $tab;
+}
+
+function getFicheObjet($id)
+{
+    $prompt = "SELECT * FROM v_objets_complets
+    WHERE id_objet='%s'";
+    $sql = sprintf($prompt, $id);
+    $result = mysqli_query(dbconnect(), $sql);
+
+    if ($data = mysqli_fetch_assoc($result)) {
+        return $data;
+    }
+}
+
+function getFicheProp($id)
+{
+    $prompt = "SELECT * FROM v_objets_complets
+    WHERE proprietaire_id='%s'";
+    $sql = sprintf($prompt, $id);
+    $result = mysqli_query(dbconnect(), $sql);
+
+    if ($data = mysqli_fetch_assoc($result)) {
+        return $data;
+    }
+}
+
+function getPropObjet($id)
+{
+    $prompt = "SELECT * FROM v_objets_complets 
+    WHERE proprietaire_id ='%s'";
+    $sql = sprintf($prompt, $id);
+    $result = mysqli_query(dbconnect(), $sql);
+    $tab = [];
+    if ($data = mysqli_fetch_assoc($result)) {
         $tab[] = $data;
     }
     return $tab;

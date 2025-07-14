@@ -11,14 +11,14 @@
 </head>
 
 <body class="bg-light">
-    <div class="container my-5">
+    <div class="container my-5 w-50">
         <form class="upload-form p-4 rounded-4 shadow-sm bg-white mx-auto" action="t_upload.php" enctype="multipart/form-data" method="post">
             <h3 class="mb-4 text-center text-primary">Photo de profil</h3>
 
             <div class="mb-4">
                 <label for="fileUpload" class="form-label fw-bold">Choisir votre photo</label>
-                <input class="form-control form-control-lg" type="file" id="fileUpload" name="fichier" required>
-                <div class="form-text">Formats acceptés: jpg, png. Max 5MB.</div>
+                <input class="form-control form-control mt-3" type="file" id="fileUpload" name="fichier" required>
+                <div class="form-text mt-3">Formats acceptés: jpg, png. Max 5MB.</div>
             </div>
 
             <button type="submit" class="btn btn-primary w-100 fw-bold shadow-sm" style="font-size: 1.1rem;">

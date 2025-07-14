@@ -4,7 +4,7 @@ include('../inc/fonction.php');
 session_start();
 var_dump($_POST);
 
-$uploadDir = '../assets/uploads/';
+$uploadDir = '../assets/Images';
 $maxSize = 20 * 1024 * 1024 * 1024; // 20 Mo 
 $allowedMimeTypes = ['image/jpeg', 'image/png'];
 // Vérifie si un fichier est soumis

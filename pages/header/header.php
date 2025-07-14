@@ -8,6 +8,8 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link" aria-current="page" href="liste.php">Home</a>
+                <a class="nav-link" aria-current="page" href="login.php">Se déconnecter</a>
+                <a class="nav-link" aria-current="page" href="recherche.php">Rechercher</a>
             </div>
         </div>
     </div>
