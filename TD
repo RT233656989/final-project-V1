@@ -1,4 +1,10 @@
-DB:
-    Creer tables
-    Creer page login et inscript
-    
+Insérer les données de test
+4  membres  OK
+4 catégories ( esthétique, bricolage, mécanique , cuisine ) OK
+10 objets par membre à répartir sur les catégories  OK
+10 emprunts OK
+
+Page à créer
+Login et inscription    OK
+Liste des objets , (avec date de retour si emprunt en cours )
+Filtre par catégorie 

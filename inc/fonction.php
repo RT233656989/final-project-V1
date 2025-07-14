@@ -7,3 +7,20 @@ function add_user($nom, $email, $ville, $genre, $dtn, $mdp)
     $sql = sprintf($prompt, $nom, $email, $ville, $genre, $dtn, $mdp);
     $result = mysqli_query(dbconnect(), $sql);
 }
+
+function verify_log($email, $mdp)
+{
+    $prompt = "SELECT * FROM final_project_membre WHERE email='%s' AND mdp='%s'";
+    $sql = sprintf($prompt, $email, $mdp);
+    $results = mysqli_query(dbconnect(), $sql);
+
+    return $results;
+}
+
+function add_image($id, $image)
+{
+    $prompt = "UPDATE final_project_membre SET image_profil = '%s' WHERE id_membre='%s'";
+    $sql = sprintf($prompt, $image, $id);
+    echo $sql;
+    $result = mysqli_query(dbconnect(), $sql);
+}
