@@ -1,0 +1,152 @@
+/*  CSS de base */
+
+/* HEADER & FOOTER */
+.tete,
+.footer {
+    background: #f9fafcdd;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    padding: 0.6rem 1.2rem;
+    position: sticky;
+    z-index: 999;
+}
+
+.tete {
+    top: 0;
+    border-bottom: 1px solid #e0e6ed;
+}
+
+.footer {
+    border-top: 1px solid #e0e6ed;
+    color: #444b54;
+    font-size: 0.95rem;
+    text-align: center;
+    background-color: #f4f7fb;
+}
+
+.footer h5 {
+    color: #1a2e4f;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.footer p,
+.footer li,
+.footer a {
+    color: #5c6b7a;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #3b82f6;
+}
+
+.footer hr {
+    border-top: 1px solid #d0d7e0;
+    margin: 1.5rem 0 1rem;
+}
+
+.footer .small {
+    color: #7a8796;
+    font-size: 0.85rem;
+    margin-bottom: 0;
+}
+
+/* NAVBAR BRAND & LINKS */
+.tete .navbar-brand {
+    color: #1f2937;
+    font-weight: 800;
+    font-size: 1.7rem;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+.tete .navbar-brand:hover,
+.tete .nav-link:hover {
+    color: #3b82f6;
+}
+
+.tete .nav-link {
+    color: #475569;
+    margin: 0 0.75rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.tete .nav-link:hover::after {
+    width: 100%;
+}
+
+.tete .nav-link.disabled {
+    color: #cbd5e1;
+    pointer-events: none;
+}
+
+.tete .navbar-toggler {
+    border: none;
+    background: transparent;
+}
+
+/* FORMULAIRES */
+.upload-form-light {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    transition: box-shadow 0.4s ease;
+    border-radius: 8px;
+}
+
+.upload-form-light:hover {
+    box-shadow: 0 6px 14px rgba(59, 130, 246, 0.1);
+}
+
+.form-label {
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.form-control-sm {
+    border-radius: 0.4rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.95rem;
+    border: 1px solid #cbd5e1;
+    color: #1f2937;
+    background-color: #f9fafb;
+}
+
+/* AJOUT STYLE PRO CORPORATE */
+.section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1.2rem;
+    border-left: 4px solid #3b82f6;
+    padding-left: 0.75rem;
+}
+
+.btn-primary-pro {
+    background-color: #2563eb;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary-pro:hover {
+    background-color: #1d4ed8;
+}
+
+input:valid {
+    border-color: #4CAF50;
+    background-color: #f8fff8;
+}
+
+input:invalid {
+    border-color: #ffb8b3;
+    background-color: #fff8f8;
+}
