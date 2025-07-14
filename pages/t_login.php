@@ -1,5 +1,5 @@
 <?php
-require('../inc/connection.php');
+require('../inc/connection_itu.php');
 include('../inc/fonction.php');
 session_start();
 if($_POST['email'] != '' && $_POST['password'] != ''){

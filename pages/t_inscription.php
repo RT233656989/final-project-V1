@@ -1,5 +1,5 @@
 <?php
-require("../inc/connection.php");
+require("../inc/connection_itu.php");
 include("../inc/fonction.php");
 session_start();
 add_user($_POST['nom'],$_POST['email'],$_POST['ville'],$_POST['genre'],$_POST['date'],$_POST['password']);

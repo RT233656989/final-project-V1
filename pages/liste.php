@@ -1,6 +1,6 @@
 <?php
 session_start();
-require("../inc/connection.php");
+require("../inc/connection_itu.php");
 include("../inc/fonction.php");
 $tab = get_objets(); 
 ?>
@@ -25,12 +25,12 @@ $tab = get_objets();
                 <table class="table table-hover w-75 tab">
                     <thead>
                         <tr>
-                            <th scope="col">nom_objet</th>
-                            <th scope="col">nom_categorie</th>
+                            <th scope="col">objet</th>
+                            <th scope="col">categorie</th>
                             <th scope="col">proprietaire</th>
                             <th scope="col">emprunteur</th>
-                            <th scope="col">date_emprunt</th>
-                            <th scope="col">date_retour</th>
+                            <th scope="col">emprunt</th>
+                            <th scope="col">date de retour</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,6 +62,7 @@ $tab = get_objets();
                     </tbody>
                 </table>
             </div>
+            <a href="login.php">Retour</a>
         </section>
     </main>
 </body>

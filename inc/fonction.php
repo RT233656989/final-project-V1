@@ -27,12 +27,25 @@ function add_image($id, $image)
 
 function get_objets()
 {
-    $prompt = "SELECT * FROM v_objets_complets" ;
+    $prompt = "SELECT * FROM v_objets_complets";
     $result = mysqli_query(dbconnect(), $prompt);
-    $tab=[];
+    $tab = [];
 
     while ($data = mysqli_fetch_assoc($result)) {
-        $tab[]=$data;
+        $tab[] = $data;
+    }
+    return $tab;
+}
+
+function getObjCat($categorie)
+{
+    $prompt = "SELECT * FROM v_objets_complets 
+    WHERE categorie_id='%s'";
+    $sql = sprintf($prompt, $categorie);
+    $result = mysqli_query(dbconnect(), $sql);
+    $tab = [];
+    while ($data = mysqli_fetch_assoc($result)) {
+        $tab[] = $data;
     }
     return $tab;
 }
