@@ -143,3 +143,68 @@ INSERT INTO final_project_emprunt (id_objet, id_membre, date_emprunt, date_retou
 (30, 1, '2023-08-14', '2023-08-21'),
 (35, 2, '2023-09-09', '2023-09-16'),
 (3, 4, '2023-10-22', '2023-10-29');
+
+/*vues*/
+DROP VIEW IF EXISTS v_objets_complets;
+CREATE VIEW v_objets_complets AS
+SELECT 
+    o.id_objet,
+    o.nom_objet,
+    c.nom_categorie,
+    o.id_membre AS proprietaire_id,
+    pm_proprio.nom AS proprietaire_nom,
+    i.nom_image,
+    e.id_emprunt,
+    e.id_membre AS emprunteur_id,
+    pm_empr.nom AS emprunteur_nom,
+    DATE_FORMAT(e.date_emprunt, '%d/%m/%Y %H:%i') AS date_emprunt,
+    DATE_FORMAT(e.date_retour, '%d/%m/%Y %H:%i') AS date_retour
+FROM final_project_objet o
+JOIN final_project_categorie_objet c ON o.id_categorie = c.id_categorie
+JOIN final_project_images_objet i ON o.id_objet = i.id_objet
+JOIN final_project_emprunt e ON o.id_objet = e.id_objet
+JOIN final_project_membre pm_proprio ON o.id_membre = pm_proprio.id_membre
+JOIN final_project_membre pm_empr ON e.id_membre = pm_empr.id_membre;
+
+DROP VIEW IF EXISTS v_objets_complets_actifs;
+CREATE VIEW v_objets_complets_actifs AS
+SELECT 
+    o.id_objet,
+    o.nom_objet,
+    c.nom_categorie,
+    o.id_membre AS proprietaire_id,
+    i.nom_image,
+    e.id_emprunt,
+    e.id_membre AS emprunteur_id,
+    DATE_FORMAT(e.date_emprunt, '%d/%m/%Y %H:%i') AS date_emprunt,
+    DATE_FORMAT(e.date_retour, '%d/%m/%Y %H:%i') AS date_retour
+FROM final_project_objet o
+JOIN final_project_categorie_objet c ON o.id_categorie = c.id_categorie
+JOIN final_project_images_objet i ON o.id_objet = i.id_objet
+JOIN final_project_emprunt e ON o.id_objet = e.id_objet
+WHERE e.date_retour > NOW();
+
+DROP VIEW IF EXISTS v_objets_sans_emprunt;
+CREATE VIEW v_objets_sans_emprunt AS
+SELECT 
+    o.id_objet,
+    o.nom_objet,
+    c.nom_categorie,
+    o.id_membre AS proprietaire_id,
+    i.nom_image
+FROM final_project_objet o
+JOIN final_project_categorie_objet c ON o.id_categorie = c.id_categorie
+JOIN final_project_images_objet i ON o.id_objet = i.id_objet;
+
+DROP VIEW IF EXISTS v_objets_empruntes;
+CREATE VIEW v_objets_empruntes AS
+SELECT 
+    e.id_emprunt,
+    e.id_objet,
+    o.nom_objet,
+    o.id_membre AS proprietaire_id,
+    e.id_membre AS emprunteur_id,
+    DATE_FORMAT(e.date_emprunt, '%d/%m/%Y %H:%i') AS date_emprunt,
+    DATE_FORMAT(e.date_retour, '%d/%m/%Y %H:%i') AS date_retour
+FROM final_project_emprunt e
+JOIN final_project_objet o ON e.id_objet = o.id_objet;

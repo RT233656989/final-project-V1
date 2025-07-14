@@ -24,3 +24,15 @@ function add_image($id, $image)
     echo $sql;
     $result = mysqli_query(dbconnect(), $sql);
 }
+
+function get_objets()
+{
+    $prompt = "SELECT * FROM v_objets_complets" ;
+    $result = mysqli_query(dbconnect(), $prompt);
+    $tab=[];
+
+    while ($data = mysqli_fetch_assoc($result)) {
+        $tab[]=$data;
+    }
+    return $tab;
+}

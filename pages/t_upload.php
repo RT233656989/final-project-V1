@@ -36,9 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fichier'])) {
         echo "Nom du fichier: ".$newName." et extension: ".$extension;
         echo "</br>";
         echo "Lalana: ".$lalana;
+        echo "</br>";
+        echo $_SESSION['current_id'];
         add_image($_SESSION['current_id'], $lalana);
         
-        //header('Location: home.php');
+        header('Location:liste.php');
 
     } else {
         echo "Échec du déplacement du fichier.";
